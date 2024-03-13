@@ -1,0 +1,24 @@
+.App {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.headerComp {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.asideComp {
+  background-color: #aca4a4;
+  float: left;
+  width: 25%;
+}
+
+.mainComp {
+  background-color: tomato;
+  float: right;
+  width: 75%;
+}
