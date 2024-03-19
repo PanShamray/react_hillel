@@ -1,54 +1,42 @@
 import React, { useState } from "react";
 
-const EmojiCounter = () => {
-  const [emojis, setEmojis] = useState([
-    { emoji: "😊", count: 0 },
-    { emoji: "😂", count: 0 },
-    { emoji: "😍", count: 0 },
-  ]);
+const EmojiVotingApp = () => {
+  const [calc, setCalc] = useState(new Array(5).fill(0));
+  const emoji = ["😀", "🥰", "😑", "🤢", "🤮"];
 
-  const [winner, setWinner] = useState(null);
-  const [showResults, setShowResults] = useState(false);
-
-  const handleVote = (index) => {
-    if (!showResults) {
-      const newEmojis = [...emojis];
-      newEmojis[index].count++;
-      setEmojis(newEmojis);
-    }
+  const handleSmileyClick = (index) => {
+    const newCalc = [...calc];
+    newCalc[index]++;
+    setCalc(newCalc);
   };
 
-  const handleShowResults = () => {
-    if (!showResults) {
-      let maxVotes = -1;
-      let winningEmoji = null;
-      emojis.forEach((emoji) => {
-        if (emoji.count > maxVotes) {
-          maxVotes = emoji.count;
-          winningEmoji = emoji.emoji;
-        }
-      });
-      setWinner(winningEmoji);
-      setShowResults(true);
+  const showResults = () => {
+    const maxVotes = Math.max(...calc);
+    const winners = calc.reduce((acc, curr, index) => {
+      if (curr === maxVotes) acc.push(emoji[index]);
+      return acc;
+    }, []);
+
+    if (winners.length === emoji.length) {
+      alert("Всі емоджі мають однакову кількість голосів");
+    } else {
+      alert(`Переможець(-ці): ${winners.join(", ")}`);
     }
   };
 
   return (
-    <>
-      <h2>Голосування за найкращий смайлик</h2>
-      <ul>
-        {emojis.map((emoji, index) => (
-          <li key={index}>
-            <span>{emoji.emoji}</span>
-            <button onClick={() => handleVote(index)}>Проголосувати</button>
-            <span> Голоси: {emoji.count}</span>
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleShowResults}>Хто переміг?</button>
-      {showResults && <p>Переможець: {winner}</p>}
-    </>
+    <div>
+      {emoji.map((em, index) => (
+        <div key={index}>
+          <span className="smile" onClick={() => handleSmileyClick(index)}>
+            { em }
+          </span>
+          <span>{calc[index]}</span>
+        </div>
+      ))}
+      <button className="btn" onClick={showResults}>Результати</button>
+    </div>
   );
 };
 
-export default EmojiCounter;
+export default EmojiVotingApp;
