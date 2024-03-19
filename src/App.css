@@ -4,12 +4,12 @@ body {
   padding: 20px;
 }
 
-.smile {
+.wrapper__smile {
   margin: 8px;
   cursor: pointer;
 }
 
-.btn {
+.wrapper__btn {
   margin: 8px;
   padding: 8px;
   background-color: beige;

@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 
 const EmojiVotingApp = () => {
-  const [calc, setCalc] = useState(new Array(5).fill(0));
-  const emoji = ["😀", "🥰", "😑", "🤢", "🤮"];
 
-  const handleSmileyClick = (index) => {
+  const emoji = ["😀", "🥰", "😑", "🤢", "🤮"];
+  const [calc, setCalc] = useState(new Array(emoji.length).fill(0));
+  
+  const handleSmileClick = (index) => {
     const newCalc = [...calc];
     newCalc[index]++;
     setCalc(newCalc);
   };
 
   const showResults = () => {
+
     const maxVotes = Math.max(...calc);
     const winners = calc.reduce((acc, curr, index) => {
+
       if (curr === maxVotes) acc.push(emoji[index]);
       return acc;
+
     }, []);
 
     if (winners.length === emoji.length) {
@@ -25,16 +29,20 @@ const EmojiVotingApp = () => {
   };
 
   return (
-    <div>
-      {emoji.map((em, index) => (
+    <div className="wrapper">
+      {emoji.map((emoji, index) => (
+
         <div key={index}>
-          <span className="smile" onClick={() => handleSmileyClick(index)}>
-            { em }
+          <span className="wrapper__smile" onClick={() => handleSmileClick(index)}>
+            {emoji}
           </span>
           <span>{calc[index]}</span>
         </div>
+        
       ))}
-      <button className="btn" onClick={showResults}>Результати</button>
+
+      <button className="wrapper__btn" onClick={showResults}>Результати</button>
+
     </div>
   );
 };
